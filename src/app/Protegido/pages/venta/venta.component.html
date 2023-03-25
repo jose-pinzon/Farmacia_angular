@@ -1,0 +1,325 @@
+<section class="Titulo_principal">
+  <img src="assets/images/medicamento.png" alt="" />
+  <h1>Sistema de ventas</h1>
+</section>
+
+<!-- FxFlex es para decir cuanto de ancho tendra -->
+<section fxLayout="row" fxLayout.xs="column" fxLayoutGap="30px">
+  <section fxFlex="40" fxLayout="column" class="secciones"><!-- Seccion de todo el form -->
+    <!-- datos del cliente -->
+    <div class="flex-c-str color-sub">
+      <mat-icon>person</mat-icon>
+      <h2>Datos clientes</h2>
+      <mat-chip-option
+        [selected]="isSelected"
+        (click)="toggleSelection()"
+        color="warn"
+        >{{ isClient }}</mat-chip-option
+      >
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+
+<!-- ______________________________________________busqueda del usuario________________________________________________ -->
+
+        <mat-form-field appearance="fill" fxFlex="60" *ngIf="isSelected; else sinCliente">
+          <mat-label>Apellido</mat-label>
+          <input
+            type="text"
+            placeholder="Pick one"
+            aria-label="Number"
+            matInput
+            [(ngModel)]="terminoCliente"
+            (input)="onSearchInput('cliente')"
+            [matAutocomplete]="autoc"
+            [disabled]="desabilitarInputCliente"
+          />
+
+          <mat-autocomplete
+            #autoc="matAutocomplete"
+            (optionSelected)="opcionseleccionadaCliente($event)"
+          >
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente">
+              {{ cliente.apellido_p }}
+            </mat-option>
+
+            <mat-option
+              *ngIf="clientes.length === 0 && terminoCliente.length > 0"
+              value=""
+            >
+              <p>No se encontro nada con ese {{ terminoCliente }}</p>
+            </mat-option>
+          </mat-autocomplete>
+
+          <mat-error>
+            obligatorio
+          </mat-error>
+
+        </mat-form-field>
+<!-- __________________________________________________________________________________________________________ -->
+        <mat-form-field appearance="fill" fxFlex="40">
+          <mat-label>Usuario</mat-label>
+          <input
+            matInput
+            color="primary"
+            [value]="clienteSelect ? clienteSelect.nombre : 'S/N'"
+            disabled
+            class="disabled"
+          />
+        </mat-form-field>
+<!-- __________________________________________________________________________________________________________ -->
+
+
+      <ng-template #sinCliente>
+        <mat-form-field class="example-full-width" fxFlex="60">
+          <input
+            matInput
+            placeholder="Compra sin cliente"
+            disabled
+          />
+        </mat-form-field>
+      </ng-template>
+    </div>
+    <!--fin datos del cliente -->
+
+<!--//////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- datos del producto ____________________________________________________________-->
+    <div class="flex-c-str color-sub">
+      <mat-icon>conveyor_belt</mat-icon>
+      <h2>Datos Producto</h2>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+
+<!-- __________________________________________________________________________________________________________ -->
+
+      <mat-form-field appearance="fill" fxFlex="60">
+        <mat-label>Codigo</mat-label>
+
+        <input
+          type="text"
+          placeholder="Pick one"
+          aria-label="Number"
+          matInput
+          [(ngModel)]="termino"
+          (input)="onSearchInput('medicamento')"
+          [matAutocomplete]="auto"
+        />
+
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="opcionseleccionada($event)"
+        >
+          <mat-option
+            *ngFor="let medicamento of medicamentos"
+            [value]="medicamento"
+          >
+            {{ medicamento.nombre_registrado }}
+          </mat-option>
+
+          <mat-option
+            *ngIf="medicamentos.length === 0 && termino.length > 0"
+            value=""
+          >
+            <p>No se encontro nada con ese {{ termino }}</p>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+<!-- __________________________________________________________________________________________________________ -->
+
+
+      <mat-form-field appearance="fill" fxFlex="40">
+        <mat-label>Medicamento</mat-label>
+        <input
+          matInput
+          color="primary"
+          [value]="
+            medicamentoSelect ? medicamentoSelect.nombre_registrado : 'S/N'
+          "
+          disabled
+          class="disabled"
+        />
+      </mat-form-field>
+<!-- __________________________________________________________________________________________________________ -->
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-form-field appearance="fill" fxFlex="50">
+        <mat-label>Nombre Cienti..</mat-label>
+        <input
+          matInput
+          color="primary"
+          [value]="
+            medicamentoSelect ? medicamentoSelect.nombre_cientifico : 'S/N'
+          "
+          disabled
+          class="disabled"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="50">
+        <mat-label>Precio Unidad</mat-label>
+        <input
+          matInput
+          color="primary"
+          [value]="medicamentoSelect ? medicamentoSelect.precio : 'S/N'"
+          disabled
+          class="disabled"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="50">
+        <mat-label>Cantidad</mat-label>
+        <input matInput placeholder="1" type="number" [(ngModel)]="cantidad" />
+      </mat-form-field>
+    </div>
+    <button
+      mat-raised-button
+      *ngIf="medicamentoSelect && clienteSelect"
+      class="btn-pay color-sub"
+      (click)="agregarProducto()"
+    >
+      Agregar
+    </button>
+
+    <button mat-raised-button class="btn-pay color-sub" (click)="verificar()">
+      Verficar data
+    </button>
+
+    <!--fin datos del producto -->
+  </section>
+
+
+
+
+
+<!-- /////////////////////////////////////////// Tabla ventas //////////////////////////////////////////////////// -->
+
+  <section fxFlex="60" fxLayout="column"><!-- usando 60% del tamaño de la caja principal -->
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+      <section class="example-container" tabindex="0">
+        <mat-table [dataSource]="dataSource">
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let element; index as i">
+              {{ i + 1 }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Vendedor Column -->
+          <ng-container matColumnDef="Vendedor">
+            <mat-header-cell *matHeaderCellDef> Vendedor </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.vendedor }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Cliente Column -->
+          <ng-container matColumnDef="Cliente">
+            <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.cliente }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Producto Column -->
+          <ng-container matColumnDef="Producto">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.producto }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Cantidad Column -->
+          <ng-container matColumnDef="Cantidad">
+            <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index">
+              <input
+                type="number"
+                class="inpu-table"
+                [(ngModel)]="cantidades[i]"
+                (ngModelChange)="TotalProduto(i)"
+              />
+            </mat-cell>
+          </ng-container>
+
+          <!-- Total Column -->
+
+          <ng-container matColumnDef="Total">
+            <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index">
+              {{ precioProducto[i] }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Eliminar">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element; index as i">
+              <button mat-stroked-button color="warn" (click)="quitar(i)">
+                <mat-icon> delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+
+        <!--Footer de la tabla -->
+        <div class="footer flex-l-m">
+          <button mat-raised-button class="btn-pay" (click)="RealizarPago()">
+            pagar
+          </button>
+          <button mat-raised-button (click)="limpiezaTable()" color="Warn">
+            Cancelar
+          </button>
+
+          <span class="spacer"></span>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Descuento:</mat-label>
+            <input matInput type="number" [(ngModel)]="descuento" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Iva :</mat-label>
+            <input matInput disabled value="{{ Iva }}" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Subtotal:</mat-label>
+            <input matInput disabled value="{{ Subtotal }}" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Total pagar:</mat-label>
+            <input matInput disabled value="{{ Totalpagar }}" />
+          </mat-form-field>
+        </div>
+      </section>
+    </div>
+
+    <!--/////////////////////////Seccion del comentario//////////////////////////// -->
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-card class="example-container ">
+        <mat-card-content>
+          <div class="content_image_descripcion" fxFlex="5">
+            <img src="assets/images/bg-01.jpg" alt="image">
+          </div>
+          <article class="content_descripcion" fxFlex="80">
+            <mat-form-field class="example-full-width-text">
+              <mat-label>Detalles de la venta</mat-label>
+              <textarea matInput placeholder="Comentario......"></textarea>
+            </mat-form-field>
+          </article>
+
+          <button fxFlex="15" mat-raised-button color="primary">Accent</button>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </section>
+
+
+</section>

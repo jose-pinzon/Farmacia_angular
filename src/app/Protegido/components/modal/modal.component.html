@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Eliminar heroe</h1>
+<div mat-dialog-content>
+  Esta seguro de eliminar a <strong> "{{ dato }}" </strong> ?
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close
+          cdkFocusInitial
+          color="warn"
+          (click)="borrar()"
+          >Si, Borrar</button>
+
+  <button mat-button mat-dialog-close
+        (click)="cancelar()">Cancelar</button>
+</div>

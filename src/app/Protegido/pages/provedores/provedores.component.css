@@ -1,0 +1,31 @@
+
+
+button{
+  cursor: pointer;
+}
+
+table th,td{
+  width: 25%;
+}
+
+.navar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.demo-button-container{
+  flex-grow: 1;
+}
+
+.demo-button-container button{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}

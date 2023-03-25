@@ -1,0 +1,11 @@
+<div class="content-graficas">
+  <canvas baseChart class="chart"
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [type]="barChartType"
+    >
+  </canvas>
+  <button class="btn btn-primary"
+  (click)="randomize()">Actualizar</button>
+</div>

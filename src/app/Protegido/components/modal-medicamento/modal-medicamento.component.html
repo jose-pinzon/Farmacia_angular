@@ -1,0 +1,143 @@
+
+
+
+
+
+
+<h1 mat-dialog-title>{{ NombreAccion }} medicamento</h1>
+
+<div mat-dialog-content>
+  <mat-spinner *ngIf="loading; else formulario "></mat-spinner>
+
+  <ng-template #formulario>
+  <form class="login100-form" autocomplete="off" [formGroup]="Formulario" >
+    <mat-grid-list cols="3" rowHeight="100">
+      <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+              <mat-label>Nombre cientifico</mat-label>
+              <input type="text" matInput formControlName="nombre_cientifico"
+                    placeholder="Paracetamol">
+            <mat-error >
+              Nombre requerido
+            </mat-error>
+
+          </mat-form-field>
+      </mat-grid-tile>
+
+
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre Registrado</mat-label>
+          <input type="text" matInput formControlName="nombre_registrado"
+                placeholder="Parameus">
+                <mat-error>
+                  Registrado requerido
+                </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <mat-label>Codigo</mat-label>
+          <input type="text" matInput formControlName="codigo"
+                placeholder="1S1SAFA">
+          <mat-error >
+            Codigo requerido
+          </mat-error>
+
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
+
+    <mat-grid-list cols="2" rowHeight="100">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Selecciona tipo</mat-label>
+          <mat-select formControlName="tipo_id">
+            <mat-option  *ngFor="let tipo of listaTipoMedicamentos"
+                        [value]="tipo.id"
+                        >{{ tipo.tipo }}</mat-option>
+          </mat-select>
+          <mat-error >
+            Seleccione un tipo
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <mat-label>Cantidad</mat-label>
+          <input type="number" matInput formControlName="cantidad"
+                placeholder="12">
+                <mat-error >
+                  La cantidad es obligatoria
+                </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number"
+          formControlName="precio"
+          class="example-right-align" placeholder="0">
+          <mat-error >
+            El precio es obligatorio y numerico
+          </mat-error>
+          <span matTextPrefix>$&nbsp;</span>
+          <span matTextSuffix>.00</span>
+        </mat-form-field>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha caducidad</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fecha_caducidad">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error >
+            Coloque una fecha correcta
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+
+    </mat-grid-list>
+  </form>
+
+    <!-- Guardar y mostrar imagen -->
+    <section class="flex-w">
+      <div class="content-img-upload content-img margin-center">
+        <mat-label>Suba su imagen</mat-label>
+        <input type="file"
+        class="d-none" placeholder="0"
+        (change)="onPhotoSelected($event)" #photoInput>
+
+        <img [src]=" imageSelected || 'assets/images/no-image.png'" alt=""
+        (click)="photoInput.click()">
+      </div>
+
+
+      <div class="content-img content-img-save" *ngIf="ImagenGuardada">
+        <img [src]=" ImagenGuardada | imagen" >
+      </div>
+    </section>
+    </ng-template>
+
+
+</div>
+
+
+<!-----------------------Acciones------------------------->
+<div  mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close
+          color="warn"
+        (click)="cancelar()">Cancelar</button>
+
+  <button mat-raised-button
+          color="Accent"
+        (click)="guardar()">{{btnAccion}}</button>
+</div>

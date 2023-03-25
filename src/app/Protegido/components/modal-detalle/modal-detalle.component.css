@@ -1,0 +1,28 @@
+img{
+  width: 300px;
+}
+
+.flex-detalle{
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+mat-label{
+  font-size: 40px;
+
+}
+
+.contenido_detalles{
+  width: 30%;
+}
+h1, h2 {
+  flex-wrap: wrap;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 15px;
+}
+
+
+

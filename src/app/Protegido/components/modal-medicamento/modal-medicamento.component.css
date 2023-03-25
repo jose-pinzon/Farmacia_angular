@@ -1,0 +1,14 @@
+
+mat-form-field{
+  font-size: 14px;
+  width: 100%;
+  margin-left: 5px;
+}
+
+
+mat-form-field mat-grid-tile{
+  margin-top:50px;
+
+}
+
+

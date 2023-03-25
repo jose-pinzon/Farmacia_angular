@@ -1,0 +1,110 @@
+.secciones{
+  /* border: 1px solid #ccc; */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #397BDD;
+  box-shadow: 0px 0px 2px  black;/* primer valor es para los lados */
+}
+.color-sub{
+  color: white;
+}
+
+.color-sub h2{
+  margin-right: 20px;
+}
+
+
+.inpu-table{
+  box-shadow: 2px  2px 4px #ccc inset;
+  padding: 2px;
+  padding-left: 50%;
+}
+.mat-mdc-table {
+  width: 100%;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.mat-column-name {
+  height: 100px;
+}
+
+.example-container{
+  width: 95%;
+}
+
+.Titulo_principal{
+  justify-content: center;
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 10px;
+  align-items: center;
+}
+
+.Titulo_principal h1{
+  font-size: 50px;
+  color: rgb(33, 81, 153);
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+
+img{
+
+  width: 100px;
+}
+
+
+.footer{
+  width: 100%;
+  height: 70px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  line-height: 70px;
+  background-color:rgb(253, 100, 100) ;
+}
+
+.footer mat-form-field{
+  margin-top: 15px;
+}
+
+.footer button,h3{
+  margin: 5px;
+  color: white;
+}
+
+ .btn-pay{
+  background-color: rgb(53, 187, 53);
+}
+
+.mat-mdc-header-cell{
+  background-color: yellow !important;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: black;
+  background-color: #ccc;
+}
+
+.content_image_descripcion{
+  border-radius: 50%;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.content_image_descripcion img{
+  width: 100px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content_descripcion{
+  margin-right: 10px;
+}
+
+.example-full-width-text{
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,75 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar >
+      <span> Menu</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a [routerLink]="['/dashboard']"
+      mat-list-item>
+      <mat-icon matListItemIcon>Home</mat-icon>
+      <span> Home </span>
+    </a>
+
+    <a [routerLink]="['/dashboard/medicamentos']"
+      mat-list-item
+      >
+      <mat-icon matListItemIcon>medical_services</mat-icon>
+      <span> Medicamentos </span>
+    </a>
+
+    <a [routerLink]="['/dashboard/tiposmedicamentos']"
+      mat-list-item>
+      <mat-icon matListItemIcon>medication</mat-icon>
+      <span>Tipos Medicamentos </span>
+    </a>
+
+
+    <a [routerLink]="['/dashboard/venta']"
+      mat-list-item>
+      <mat-icon matListItemIcon> shopping_cart</mat-icon>
+      <span> vender producto </span>
+    </a>
+
+
+    <a [routerLink]="['/dashboard/clientes']"
+      mat-list-item>
+      <mat-icon matListItemIcon> group </mat-icon>
+      <span> Clientes </span>
+    </a>
+
+    <a [routerLink]="['/dashboard/provedores']"
+      mat-list-item>
+      <mat-icon matListItemIcon> local_shipping </mat-icon>
+      <span> Proveedores </span>
+    </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>farmaciaAPP</span>
+
+    <span class="spacer"></span>
+
+      <span class="margin_right">{{ usuario.nombre }}</span>
+      <button mat-button color="accent" (click)="logout()">
+          Logout
+      </button>
+    </mat-toolbar>
+
+      <section class="contenedor">
+        <router-outlet></router-outlet>
+      </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

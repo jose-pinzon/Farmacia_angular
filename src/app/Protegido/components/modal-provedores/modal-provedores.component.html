@@ -1,0 +1,119 @@
+<h1 mat-dialog-title>{{ NombreAccion }} Provedor</h1>
+
+<div mat-dialog-content>
+  <mat-spinner *ngIf="loading; else formulario"></mat-spinner>
+
+  <ng-template #formulario>
+    <form class="login100-form" autocomplete="off" [formGroup]="Formulario">
+      <mat-grid-list cols="3" rowHeight="100">
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="nombre"
+              placeholder="Jose"
+            />
+            <mat-error> Nombre requerido </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Apellido Paterno</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="apellido_p"
+              placeholder="Chan"
+            />
+            <mat-error> Apellido requerido </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Apellido Materno</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="apellido_m"
+              placeholder="Eb"
+            />
+            <mat-error> Apellido requerido </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Direccion</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="direccion"
+              placeholder="45 x 20 "
+            />
+
+            <mat-error> direccion requerida </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Identificacion</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="identificacion"
+              placeholder="8NJDA8BLAS8NAS8D "
+            />
+
+            <mat-error> Identificacion requerida </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Telefono</mat-label>
+            <input
+              type="number"
+              matInput
+              formControlName="telefono"
+              placeholder="9878764554"
+            />
+            <mat-error> Numero requerido </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="email"
+              placeholder="email@gmail.com"
+            />
+            <mat-error> Email requerido y formato correcto </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </ng-template>
+</div>
+
+<!-----------------------Acciones------------------------->
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn" (click)="cancelar()">
+    Cancelar
+  </button>
+
+  <button
+    mat-raised-button
+    color="Accent"
+    (click)="guardar()"
+  >
+    {{ btnAccion }}
+  </button>
+</div>

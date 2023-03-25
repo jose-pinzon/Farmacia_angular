@@ -1,0 +1,146 @@
+<div class="grid-container">
+  <!-- <h1 class="mat-h1">Dashboard</h1 -->
+
+  <!-- cols columnas qte tendra la seccion , rowHeight cuanto tendra las row
+    gutterSize definir espacios entre los elementos  -->
+  <mat-grid-list [cols]="colSize" rowHeight="100px" gutterSize="10px">
+
+    <mat-grid-tile class="cards-small" colspan="1" rowspan="2">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Small</mat-card-subtitle>
+            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="cards-small" colspan="1" rowspan="2">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Small</mat-card-subtitle>
+            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="cards-small" colspan="1" rowspan="2">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Small</mat-card-subtitle>
+            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="cards-small" colspan="1" rowspan="2">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Small</mat-card-subtitle>
+            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+
+
+
+<!-- Grafica Principal __________________________________________________________-->
+  <mat-grid-list cols="1" rowHeight="50px">
+
+    <mat-grid-tile  colspan="1" [rowspan]="rowspanGraficaPricipal"><!-- Definicion de espacio a ocupar -->
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <!-- Contenido del card -->
+            <div>
+              <app-grafica-barras
+              [barChartData]="proveedoresData"></app-grafica-barras>
+            </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+  <!-- Graficas restantes -->
+  <mat-grid-list [cols]="colsGraficasRestantes" rowHeight="50px">
+    <mat-grid-tile  colspan="1" [rowspan]="rowspanGraficasRestantes">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile  colspan="1" [rowspan]="rowspanGraficasRestantes">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div><app-grafica-barras
+            [horizontal]="true"
+            [barChartData]="productoData"></app-grafica-barras>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

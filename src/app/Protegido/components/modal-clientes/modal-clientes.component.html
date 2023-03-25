@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>{{ NombreAccion }} Cliente</h1>
+
+<div mat-dialog-content>
+  <mat-spinner *ngIf="loading; else formulario "></mat-spinner>
+
+  <ng-template #formulario>
+
+    <form class="login100-form" autocomplete="off" [formGroup]="Formulario">
+      <mat-grid-list cols="3" rowHeight="100">
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="nombre" placeholder="Jose">
+            <mat-error>
+              Nombre requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Apellido Paterno</mat-label>
+            <input type="text" matInput formControlName="apellido_p" placeholder="Chan">
+            <mat-error>
+              Apellido requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Apellido Materno</mat-label>
+            <input type="text" matInput formControlName="apellido_m" placeholder="Eb">
+            <mat-error>
+              Apellido requerido
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Direccion</mat-label>
+            <input type="text" matInput formControlName="direccion" placeholder="45 x 20 ">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Selecciona Genero</mat-label>
+            <mat-select formControlName="genero">
+              <mat-option value="H"> Hombre</mat-option>
+              <mat-option value="M"> Mujer</mat-option>
+            </mat-select>
+            <mat-error>
+              Seleccione un genero
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+
+    </form>
+  </ng-template>
+</div>
+
+
+<!-----------------------Acciones------------------------->
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn" (click)="cancelar()">Cancelar</button>
+
+  <button mat-raised-button color="Accent"  (click)="guardar()">{{btnAccion}}</button>
+
+
+</div>

@@ -1,0 +1,78 @@
+<mat-sidenav-container fullscreen>
+  <!--Barra lateral -->
+  <mat-sidenav #sidenav mode="side" >
+    <mat-toolbar color="primary">
+      <span>Menú</span>
+    <span class="spacer"></span>
+
+      <!-- <button mat-icon-button
+        (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button> -->
+    </mat-toolbar>
+
+    <mat-nav-list>
+        <a [routerLink]="['/dashboard']"
+          mat-list-item
+          (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>Home</mat-icon>
+          <span> Home </span>
+        </a>
+
+        <a [routerLink]="['/dashboard/medicamentos']"
+          mat-list-item
+          (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>medical_services</mat-icon>
+          <span> Medicamentos </span>
+        </a>
+
+        <a [routerLink]="['/dashboard/tiposmedicamentos']"
+          mat-list-item
+          (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>medication</mat-icon>
+          <span>Tipos Medicamentos </span>
+        </a>
+
+
+        <a [routerLink]="['/dashboard/venta']"
+          mat-list-item
+          (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon> shopping_cart</mat-icon>
+          <span> vender producto </span>
+        </a>
+
+    </mat-nav-list>
+</mat-sidenav>
+
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+  </button>
+
+    <span class="spacer"></span> <!-- span con clase propia para separar los elementos  -->
+
+    <span class="margin_right">{{ usuario.nombre }}</span>
+  <button mat-button color="accent" (click)="logout()">
+      Logout
+  </button>
+</mat-toolbar>
+
+
+  <!-- Contenido -->
+  <section class="contenedor">
+    <router-outlet></router-outlet>
+  </section>
+
+
+
+
+</mat-sidenav-container>
+
+
+
+
+<!-- <h1>usuario</h1>
+<pre> {{ usuario | json }} </pre>
+
+<button (click)="logout()"
+        class="txt2">Logout</button> -->
