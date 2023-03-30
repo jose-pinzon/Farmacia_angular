@@ -26,6 +26,8 @@ import { ModalClientesComponent } from './components/modal-clientes/modal-client
 import { ImagenPipe } from './pipes/imagen.pipe';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficaBarrasComponent } from './components/grafica-barras/grafica-barras.component';
+import { Registro_ventasComponent } from './pages/Registro_ventas/Registro_ventas.component';
+import { JsPdfComponent } from './components/JsPdf/JsPdf.component';
 
 
 
@@ -48,8 +50,9 @@ import { GraficaBarrasComponent } from './components/grafica-barras/grafica-barr
     ModalProvedoresComponent,
     ModalClientesComponent,
     ImagenPipe,
-    GraficaBarrasComponent
-
+    GraficaBarrasComponent,
+    Registro_ventasComponent,
+    JsPdfComponent,
   ],
   imports: [
     CommonModule,
