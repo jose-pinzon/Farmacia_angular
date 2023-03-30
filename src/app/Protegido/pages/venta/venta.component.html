@@ -5,7 +5,14 @@
 
 <!-- FxFlex es para decir cuanto de ancho tendra -->
 <section fxLayout="row" fxLayout.xs="column" fxLayoutGap="30px">
+
   <section fxFlex="40" fxLayout="column" class="secciones"><!-- Seccion de todo el form -->
+    <div class="Errors" *ngIf="Errores">
+      <span *ngFor="let error of Errores">
+          {{error}}
+      </span>
+    </div>
+
     <!-- datos del cliente -->
     <div class="flex-c-str color-sub">
       <mat-icon>person</mat-icon>
@@ -17,6 +24,8 @@
         >{{ isClient }}</mat-chip-option
       >
     </div>
+
+
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
 
@@ -51,9 +60,6 @@
             </mat-option>
           </mat-autocomplete>
 
-          <mat-error>
-            obligatorio
-          </mat-error>
 
         </mat-form-field>
 <!-- __________________________________________________________________________________________________________ -->
@@ -175,10 +181,9 @@
     </div>
     <button
       mat-raised-button
-      *ngIf="medicamentoSelect && clienteSelect"
+
       class="btn-pay color-sub"
-      (click)="agregarProducto()"
-    >
+      (click)="agregarProducto()">
       Agregar
     </button>
 
@@ -302,6 +307,9 @@
     <!--/////////////////////////Seccion del comentario//////////////////////////// -->
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
       <mat-card class="example-container ">
+        <span class="span-advertencia">
+          <h2>Colocar comentario antes de pagar</h2>
+        </span>
         <mat-card-content>
           <div class="content_image_descripcion" fxFlex="5">
             <img src="assets/images/bg-01.jpg" alt="image">
@@ -313,7 +321,9 @@
             </mat-form-field>
           </article>
 
-          <button fxFlex="15" mat-raised-button color="primary">Accent</button>
+          <button fxFlex="15" mat-raised-button color="primary">Agregar</button>
+          <button fxFlex="15" mat-raised-button
+             (click)="generatePdf()"   color="primary">pdf</button>
 
         </mat-card-content>
       </mat-card>

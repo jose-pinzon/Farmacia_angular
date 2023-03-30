@@ -1,17 +1,25 @@
 import { Component } from '@angular/core';
-import { ProtegidoService } from '../../protegido.service';
-import { Medicina } from '../../interfaces/medicamentosI';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Cliente } from '../../interfaces/clienteInterface';
 import { MatTableDataSource } from '@angular/material/table';
+import { Cliente } from '../../interfaces/clienteInterface';
+import { Medicina } from '../../interfaces/medicamentosI';
+import { ProtegidoService } from '../../protegido.service';
 
+import { Subject, debounceTime } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
 import {
   VentaInterface,
   body_venta,
   producto,
 } from '../../interfaces/ventaInterface';
-import { Subject, debounceTime } from 'rxjs';
+
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
+
 
 @Component({
   selector: 'app-venta',
@@ -29,6 +37,7 @@ export class VentaComponent {
     'Total',
     'Eliminar',
   ];
+  // Datos de la tabla
   dataSource = new MatTableDataSource<VentaInterface>();
 
   //!Variables de las cuentas
@@ -53,6 +62,9 @@ export class VentaComponent {
   //!Varible para verificar si es para un cliente
   isSelected: boolean = true;
 
+  //!Variable para mandar errores
+  Errores:string[] = []
+
   constructor(
     private _protegidoService: ProtegidoService,
     private _authService: AuthService
@@ -72,34 +84,12 @@ export class VentaComponent {
     });
   }
 
-  toggleSelection() {
-    this.isSelected = !this.isSelected;
 
-    if (this.isSelected) {
-        this.clienteSelect = undefined
-    } else{
-      this.clienteSelect = {
-        id:10,
-        nombre:'S/N',
-        apellido_m:'SN',
-        apellido_p:'SN',
-        genero:'SN',
-        direccion:'SN'
-      }
-    }
-
-  }
 
   get isClient() {
     return this.isSelected ? 'Es Cliente' : 'Sin Cliente';
   }
 
-  TotalProduto(index: number) {
-    if (!this.cantidades[index]) return;
-
-    this.precioProducto[index] = this.cantidades[index] * this.dataSource.data[index].precioOriginal;
-    this.SumaDeTotal();
-  }
 
   get precioProducto() {
     return this.preciosProducto;
@@ -117,6 +107,35 @@ export class VentaComponent {
     return this.TotalCompra - this.descuento + this.Iva;
   }
 
+  get usuario() {
+    return this._authService.usuario;
+  }
+
+
+  generatePdf() {
+    const documentDefinition:any = {
+      content: [
+        { text: 'Reporte de Ventas', style: 'header' },
+        { text: 'Fecha: ' + new Date().toLocaleDateString(), style: 'subheader' },
+        { text: 'Ventas Totales: $1000', style: 'subheader' }
+      ],
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        }
+      }
+    };
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+
   //Todo: Funcion para revisar los datos guardados en la tabla
   verificar() {
     console.log(this.dataSource.data);
@@ -124,8 +143,13 @@ export class VentaComponent {
     console.log(this.preciosProducto);
   }
 
-  get usuario() {
-    return this._authService.usuario;
+
+
+  TotalProduto(index: number) {
+    if (!this.cantidades[index]) return;
+
+    this.precioProducto[index] = this.cantidades[index] * this.dataSource.data[index].precioOriginal;
+    this.SumaDeTotal();
   }
 
   SumaDeTotal() {
@@ -172,6 +196,18 @@ export class VentaComponent {
   }
 
   agregarProducto() {
+    this.Errores = []
+
+    while (!this.clienteSelect) {
+      this.Errores.push('El cliente es obligatorio')
+      return
+    }
+
+    while (!this.medicamentoSelect) {
+        this.Errores.push('El medicamento es obligatorio')
+        return
+    }
+
     let total = this.medicamentoSelect?.precio! * this.cantidad;
     const DatosCompra: VentaInterface = {
       vendedor_id: this.usuario.uid,
@@ -191,6 +227,7 @@ export class VentaComponent {
     data.push(DatosCompra);
     this.dataSource.data = data;
 
+    this.Errores = []
     this.SumaDeTotal();
 
     //?Limpieza de datos
@@ -198,6 +235,26 @@ export class VentaComponent {
     this.termino = '';
     this.cantidad = 1;
   }
+
+  toggleSelection() {
+    //?Funcion para verificar si la compra se realizara con cliente o no
+     this.isSelected = !this.isSelected;
+
+    if (this.isSelected) {
+        this.clienteSelect = undefined
+    } else{
+      this.clienteSelect = {
+        id:10,
+        nombre:'S/N',
+        apellido_m:'SN',
+        apellido_p:'SN',
+        genero:'SN',
+        direccion:'SN'
+      }
+    }
+
+  }
+
 
   quitar(i: number) {
     this.TotalCompra = this.TotalCompra - this.precioProducto[i];
@@ -225,7 +282,6 @@ export class VentaComponent {
       .GetClientes(this.terminoCliente)
       .subscribe((resp) => (this.clientes = resp.cliente));
   }
-
   //TODO: Funciones para buscar el dato del elemento seleccionado
 
   opcionseleccionada(e: MatAutocompleteSelectedEvent) {
@@ -242,7 +298,6 @@ export class VentaComponent {
       .GetMedicamento(medicamento.id!)
       .subscribe((medicina) => (this.medicamentoSelect = medicina.medicamento));
   }
-
   opcionseleccionadaCliente(e: MatAutocompleteSelectedEvent) {
     if (!e.option.value) {
       this.clienteSelect = undefined;
