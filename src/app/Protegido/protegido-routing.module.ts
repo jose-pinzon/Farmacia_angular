@@ -8,6 +8,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { FormComponent } from './components/form/form.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ProvedoresComponent } from './pages/provedores/provedores.component';
+import { Registro_ventasComponent } from './pages/Registro_ventas/Registro_ventas.component';
+import { HasroleGuard } from '../guards/hasrole.guard';
 
 
 const routes: Routes = [{
@@ -16,31 +18,65 @@ const routes: Routes = [{
   children:[
     {
       path:'home',
-      component:HomeComponent
+      component:HomeComponent,
+      canLoad:[ HasroleGuard ],
+      canActivate:[ HasroleGuard ],
+      data:{
+        allowedRoles:['admin','vendedor']
+      }
     },
+
     {
       path:'medicamentos',
       component:MedicamentosComponent
     },
+
     {
       path:'tiposmedicamentos',
-      component:TiposMedicamentosComponent
+      component:TiposMedicamentosComponent,
+      canLoad:[ HasroleGuard ],
+      canActivate:[ HasroleGuard ],
+      data:{
+        allowedRoles:['admin']
+      }
     },
+
     {
       path:'venta',
-      component:VentaComponent
+      component:VentaComponent,
+      canLoad:[ HasroleGuard ],
+      canActivate:[ HasroleGuard ],
+      data:{
+        allowedRoles:['admin','vendedor']
+      }
     },
+
     {
       path:'clientes',
-      component:ClientesComponent
+      component:ClientesComponent,
+      canLoad:[ HasroleGuard ],
+      canActivate:[ HasroleGuard ],
+      data:{
+        allowedRoles:['admin']
+      }
     },
     {
       path:'provedores',
-      component:ProvedoresComponent
+      component:ProvedoresComponent,
+      canLoad:[ HasroleGuard ],
+      canActivate:[ HasroleGuard ],
+      data:{
+        allowedRoles:['admin']
+      }
     },
     {
-      path:'form',
-      component:FormComponent
+      path:'registrosVenta',
+      component:Registro_ventasComponent,
+      canLoad:[ HasroleGuard ],
+      canActivate:[ HasroleGuard ],
+      data:{
+        allowedRoles:['admin']
+      }
     },
 
     {
