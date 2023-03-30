@@ -8,26 +8,21 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ValidarTokenGuard implements CanActivate, CanLoad {
 
-    constructor( private authservice:AuthService,
+  constructor( private authservice:AuthService,
                 private router:Router ){}
-
 
   canActivate(): Observable<boolean> | boolean  {
 
     return this.authservice.validarToken()
     .pipe(
-
       tap( valid => {
           if ( !valid ) {
               this.router.navigateByUrl('/auth')
           }
       })
-
     );
-
   }
   canLoad(): Observable<boolean> | boolean  {
-
     return this.authservice.validarToken()
     .pipe(
 
