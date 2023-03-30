@@ -2966,3 +2966,9 @@ align-items: center;
 mat-spinner{
   margin: 0 auto;
 }
+
+
+.displayFlex{
+  display: flex;
+  flex-wrap: wrap;
+}
