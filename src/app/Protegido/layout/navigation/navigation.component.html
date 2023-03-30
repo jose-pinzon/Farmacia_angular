@@ -7,44 +7,15 @@
       <span> Menu</span>
     </mat-toolbar>
     <mat-nav-list>
-      <a [routerLink]="['/dashboard']"
-      mat-list-item>
-      <mat-icon matListItemIcon>Home</mat-icon>
-      <span> Home </span>
-    </a>
-
-    <a [routerLink]="['/dashboard/medicamentos']"
-      mat-list-item
-      >
-      <mat-icon matListItemIcon>medical_services</mat-icon>
-      <span> Medicamentos </span>
-    </a>
-
-    <a [routerLink]="['/dashboard/tiposmedicamentos']"
-      mat-list-item>
-      <mat-icon matListItemIcon>medication</mat-icon>
-      <span>Tipos Medicamentos </span>
-    </a>
 
 
-    <a [routerLink]="['/dashboard/venta']"
-      mat-list-item>
-      <mat-icon matListItemIcon> shopping_cart</mat-icon>
-      <span> vender producto </span>
-    </a>
+      <!-- Links de los modulos -->
 
-
-    <a [routerLink]="['/dashboard/clientes']"
-      mat-list-item>
-      <mat-icon matListItemIcon> group </mat-icon>
-      <span> Clientes </span>
-    </a>
-
-    <a [routerLink]="['/dashboard/provedores']"
-      mat-list-item>
-      <mat-icon matListItemIcon> local_shipping </mat-icon>
-      <span> Proveedores </span>
-    </a>
+      <a *ngFor="let ruta of ruleRuta" [routerLink]="[ruta.ruta]"
+        mat-list-item>
+        <mat-icon matListItemIcon>{{ ruta.icono }}</mat-icon>
+        <span> {{ ruta.nombre }} </span>
+      </a>
 
     </mat-nav-list>
   </mat-sidenav>
