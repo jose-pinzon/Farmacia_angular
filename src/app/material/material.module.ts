@@ -18,6 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 
@@ -61,7 +62,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatNativeDateModule,
     MatMenuModule,
     MatRadioModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTreeModule
 
   ]
 })
