@@ -1,0 +1,25 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+
+/* Fondo de la tabla */
+.mat-elevation-z8 {
+  width: 98%;
+  min-height: 50px;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+
+mat-form-field{
+  margin-left: 10px;
+}
+
+button{
+  width: 100px;
+  padding: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
