@@ -10,12 +10,14 @@ export interface AuthI {
   email?: string;
   token?: string;
   msg?:  string;
+  rol?: string;
 }
 
 
 export interface Usuario{
   uid: string;
   nombre: string;
+  rol?: string;
   apellido_p?:string;
   apellido_m?:string;
   edad?:number;
