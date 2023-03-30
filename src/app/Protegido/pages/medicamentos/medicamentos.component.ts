@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ProtegidoService } from '../../protegido.service';
-import { Medicina  } from '../../interfaces/medicamentosI';
+import { Medicina } from '../../interfaces/medicamentosI';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -34,8 +34,7 @@ export class MedicamentosComponent implements AfterViewInit, OnInit {
   ];
   dataSource = new MatTableDataSource<Medicina>();
 
-
-// Ciclo de Vida__________________________
+  // Ciclo de Vida__________________________
   constructor(
     private _protegidoService: ProtegidoService,
     public dialog: MatDialog,
@@ -63,12 +62,11 @@ export class MedicamentosComponent implements AfterViewInit, OnInit {
     return [...this.dataSource.data];
   }
 
-
   borrar(id: number) {
     const data = {
-      nombretabla:'medicamentos',
-      id
-    }
+      nombretabla: 'medicamentos',
+      id,
+    };
 
     // TODO:Falta realizar la api en node
     this.dialog
@@ -88,48 +86,46 @@ export class MedicamentosComponent implements AfterViewInit, OnInit {
   }
 
   crearUsuario() {
-    this.dialog.
-      open(ModalMedicamentoComponent,{
-      width:'700px',
-    })
-    .afterClosed()
-    .subscribe( res =>{
-      if (res) {
-        this.mostrarsnakbar(res)
-        this.getMedicamento()
-      }
-    })
-  }
-
-
-  editarUsuario(id:number) {
-    this.dialog.
-      open(ModalMedicamentoComponent,{
-      width:'700px',
-      data: id
-    })
-    .afterClosed()
-    .subscribe( res =>{
-      if (res) {
-        this.mostrarsnakbar(res)
-        this.getMedicamento()
-      }
-
-    })
-  }
-
-  VerDetalles(id:number){
-    const data ={
-      id,
-      tabla:'medicamentos'
-    }
-
-    this.dialog.
-      open(ModalDetalleComponent,{
-        width:'80%',
-        data
+    this.dialog
+      .open(ModalMedicamentoComponent, {
+        width: '700px',
       })
       .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.mostrarsnakbar(res);
+          this.getMedicamento();
+        }
+      });
+  }
+
+  editarUsuario(id: number) {
+    this.dialog
+      .open(ModalMedicamentoComponent, {
+        width: '700px',
+        data: id,
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.mostrarsnakbar(res);
+          this.getMedicamento();
+        }
+      });
+  }
+
+  VerDetalles(id: number) {
+    const data = {
+      id,
+      tabla: 'medicamentos',
+    };
+
+    this.dialog
+      .open(ModalDetalleComponent, {
+        width: '80%',
+        data,
+      })
+      .afterClosed();
   }
 
   applyFilter(event: Event) {
