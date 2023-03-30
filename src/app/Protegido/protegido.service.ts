@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { TipoMedicamentoInterface, TipoMedicamentoI } from './interfaces/TipoMedicamentoI';
 import { UsuarioInterface } from './interfaces/UsuariosI';
 import { ClienteI, ClienteShow, Cliente } from './interfaces/clienteInterface';
-import { VentaI, VentaInterface, body_venta } from './interfaces/ventaInterface';
+import { VentaAPIInterface, VentaI, VentaInterface, body_venta } from './interfaces/ventaInterface';
 import { Provedor, ProvedorI, ProvedorMsg, ProvedorIshow } from './interfaces/proveedores';
 import { ImagenUploadI } from './interfaces/ImagenUploadI';
 
@@ -20,6 +20,15 @@ export class ProtegidoService {
   private baseUrl:string = environment.baseUrl
 
   constructor(private http:HttpClient ) {}
+
+
+  //! Peticiones datos de ventas-----------------------------------------------------------------------------------------
+  Getventas():Observable<VentaAPIInterface>{
+    return this.http.get<VentaAPIInterface>(`${ this.baseUrl }/venta`)
+  }
+
+
+
 
   //! Peticiones al cliente-----------------------------------------------------------------------------------------
 
