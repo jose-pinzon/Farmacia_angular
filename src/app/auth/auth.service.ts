@@ -81,12 +81,12 @@ export class AuthService {
     return this.http.get<AuthI>( url,{ headers })
         .pipe(
           map( resp => {  /* Solo se disapara si la respuesta exitosa */
-
             localStorage.setItem('token', resp.token! )
             this._usuario = {
               nombre: resp.nombre!,
               email: resp.email!,
-              uid: resp.uid!
+              uid: resp.uid!,
+              rol:resp.rol
             }
 
             return resp.ok
